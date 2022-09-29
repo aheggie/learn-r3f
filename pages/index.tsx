@@ -9,7 +9,7 @@ const Home: NextPage = () => {
       <Canvas>
         <CameraOrbitController />
         <ambientLight intensity={0.1} />
-        <directionalLight color={"pink"} position={[0, 0, 5]} />
+        <directionalLight color={"#FAADED"} position={[0, 0, 5]} />
         <AnimatedBox />
       </Canvas>
     </div>
