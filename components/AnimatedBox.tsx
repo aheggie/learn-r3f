@@ -13,7 +13,7 @@ const AnimatedBox = () => {
   });
   return (
     <mesh ref={meshRef}>
-      <boxGeometry args={[1, 2, 3]} />
+      <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial />
     </mesh>
   );
