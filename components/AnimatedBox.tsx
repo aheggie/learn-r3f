@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useHelper } from "@react-three/drei";
+import { BoxHelper } from "three";
 
 const AnimatedBox = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  useHelper(meshRef, BoxHelper, "blue");
 
   useFrame(() => {
     if (meshRef.current) {
@@ -13,7 +16,7 @@ const AnimatedBox = () => {
   });
   return (
     <mesh ref={meshRef}>
-      <boxGeometry args={[1, 1, 1]} />
+      <boxGeometry args={[1, 2, 3]} />
       <meshStandardMaterial />
     </mesh>
   );

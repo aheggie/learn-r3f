@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   return (
     <div className="container">
       <Canvas>
-        <axesHelper visible={testing} args={[2]} />
+        <axesHelper visible={testing} args={[10]} />
         <CameraOrbitController />
         <ambientLight intensity={0.1} />
         <directionalLight color={"#FAADED"} position={[0, 0, 5]} />
