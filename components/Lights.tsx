@@ -9,7 +9,17 @@ const Lights: React.FC = () => {
   return (
     <>
       <ambientLight intensity={0.05} />
-      <directionalLight ref={lightRef} position={[5, 20, 20]} castShadow />
+      <directionalLight
+        ref={lightRef}
+        position={[5, 20, 20]}
+        castShadow
+        shadow-mapSize-height={1000}
+        shadow-mapSize-width={1000}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={20}
+        shadow-camera-bottm={-20}
+      />
     </>
   );
 };
