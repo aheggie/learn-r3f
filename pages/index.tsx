@@ -35,8 +35,8 @@ const Home: NextPage = () => {
           </>
         ) : null}
         <OrbitControls />
-        <ambientLight intensity={0.1} />
-        <directionalLight color={"#FAADED"} position={[0, 0, 5]} />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[0, 5, 5]} />
         {/* <AnimatedBox isTesting={testing} /> */}
         <TexturedSpeheres />
       </Canvas>
