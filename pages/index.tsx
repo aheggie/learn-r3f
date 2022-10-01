@@ -1,22 +1,24 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Stats } from "@react-three/drei";
+import { OrbitControls, Stats, useTexture } from "@react-three/drei";
 import type { NextPage } from "next";
-// import AnimatedBox from "../components/AnimatedBox";
+// import AnimatedBox from "../public/textures";
 
 const TexturedSpeheres = () => {
+  const map = useTexture("./textures/stone_wall_diff_4k.png");
+  const displacementMap = useTexture("./textures/stone_wall_disp_4k.png");
+  const normalMap = useTexture("./textures/stone_wall_nor_gl_4k.png");
+  const roughnessMap = useTexture("./textures/stone_wall_rough_4k.png");
   return (
     <>
-      <mesh position={[-2, 0, 0]}>
-        <sphereGeometry />
-        <meshStandardMaterial color={"#FABBAE"} />
-      </mesh>
       <mesh position={[0, 0, 0]}>
-        <sphereGeometry />
-        <meshStandardMaterial color={"#4B1DAD"} />
-      </mesh>
-      <mesh position={[2, 0, 0]}>
-        <sphereGeometry />
-        <meshStandardMaterial color={"#FAADED"} />
+        <sphereGeometry args={[1, 200, 200]} />
+        <meshStandardMaterial
+          map={map}
+          normalMap={normalMap}
+          roughnessMap={roughnessMap}
+          displacementMap={displacementMap}
+          displacementScale={0.2}
+        />
       </mesh>
     </>
   );
@@ -26,7 +28,7 @@ const Home: NextPage = () => {
   const testing = true;
   return (
     <div className="container">
-      <Canvas>
+      <Canvas camera={{ position: [2, 4, 10] }}>
         {testing ? (
           <>
             <Stats />
@@ -35,8 +37,8 @@ const Home: NextPage = () => {
           </>
         ) : null}
         <OrbitControls />
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[0, 5, 5]} />
+        <ambientLight intensity={0.2} />
+        <directionalLight color={"pink"} intensity={1} position={[0, 5, 5]} />
         {/* <AnimatedBox isTesting={testing} /> */}
         <TexturedSpeheres />
       </Canvas>
