@@ -4,6 +4,26 @@ import type { NextPage } from "next";
 import { useRef } from "react";
 // import AnimatedBox from "../public/textures";
 
+type Direction = "out" | "in";
+
+const nextStoneFrame = (
+  currentScale: number,
+  currentDirection: Direction
+): [number, Direction] => {
+  const newScale: number =
+    currentDirection === "out" ? currentScale + 0.005 : currentScale - 0.005;
+  console.log(newScale);
+  if (newScale >= 0.5) {
+    return [newScale, "in"];
+  }
+
+  if (newScale <= 0.1) {
+    return [newScale, "out"];
+  }
+
+  return [newScale, currentDirection];
+};
+
 const TexturedSpeheres = () => {
   const map = useTexture("./textures/stone_wall_diff_4k.png");
   const displacementMap = useTexture("./textures/stone_wall_disp_4k.png");
@@ -12,47 +32,17 @@ const TexturedSpeheres = () => {
 
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
-  let dir: "out" | "in" = "out";
-  let pace = 0;
-  const BREATH_RATE = 50;
+  let dir: Direction = "out";
+  // let pace = 0;
+  // const BREATH_RATE = 50;
   useFrame(() => {
     if (materialRef.current) {
-      console.log(pace);
-      pace += 1;
-      console.log(pace);
-      if (materialRef.current.displacementScale === 0 && pace === BREATH_RATE) {
-        materialRef.current.displacementScale = 0.1;
-        dir = "out";
-        console.log(materialRef.current.displacementScale);
-        pace = 0;
-      }
-      if (
-        materialRef.current.displacementScale === 0.1 &&
-        dir === "out" &&
-        pace === BREATH_RATE
-      ) {
-        materialRef.current.displacementScale = 0.2;
-        console.log(materialRef.current.displacementScale);
-        pace = 0;
-      }
-      if (
-        materialRef.current.displacementScale === 0.2 &&
-        pace === BREATH_RATE
-      ) {
-        materialRef.current.displacementScale = 0.1;
-        dir = "in";
-        console.log(materialRef.current.displacementScale);
-        pace = 0;
-      }
-      if (
-        materialRef.current.displacementScale === 0.1 &&
-        dir === "in" &&
-        pace === BREATH_RATE
-      ) {
-        materialRef.current.displacementScale = 0;
-        console.log(materialRef.current.displacementScale);
-        pace = 0;
-      }
+      const [nextScale, nextDir] = nextStoneFrame(
+        materialRef.current.displacementScale,
+        dir
+      );
+      materialRef.current.displacementScale = nextScale;
+      dir = nextDir;
     }
   });
   return (
