@@ -1,6 +1,8 @@
 import { useHelper } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber";
 import { useRef } from "react";
 import { DirectionalLightHelper } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const Lights: React.FC = () => {
   const lightRef = useRef<THREE.DirectionalLight>(null);
@@ -20,6 +22,7 @@ const Lights: React.FC = () => {
         shadow-camera-top={20}
         shadow-camera-bottm={-20}
       />
+      <hemisphereLight args={["lightskyblue", "#15CB73", 0.2]} />
     </>
   );
 };
